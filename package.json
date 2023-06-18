@@ -1,21 +1,21 @@
 {
-  "name": "dmego-home-page",
+  "name": "lovelyyoshino-home-page",
   "version": "1.0.4",
-  "description": "Dmego Home Page",
+  "description": "Hermit_Rabbit Home Page",
   "scripts": {
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dmego/home.github.io.git"
+    "url": "git+https://github.com/lovelyyoshino/home.github.io.git"
   },
   "keywords": [
-    "Dmego",
+    "lovelyyoshino",
     "HomePage"
   ],
-  "author": "Dmego",
+  "author": "lovelyyoshino",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dmego/home.github.io/issues"
+    "url": "https://github.com/lovelyyoshino/home.github.io/issues"
   },
-  "homepage": "https://github.com/dmego/home.github.io#readme"
+  "homepage": "https://github.com/lovelyyoshino/home.github.io#readme"
 }
