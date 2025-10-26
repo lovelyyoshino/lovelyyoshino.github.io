@@ -1,176 +1,802 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<html lang="zh-CN">
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>lovelyyoshino Home</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width">
-  <link rel='shortcut icon' type='image/x-icon' href='favicon.ico' />
-  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-72x72-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-114x114-precomposed.png">
-  <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-144x144-precomposed.png">
-  <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-
-  <link rel="stylesheet" href="css/normalize.min.css">
-  <link rel="stylesheet" href="css/main.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-  <script src="js/vendor/jquery.hashchange.min.js"></script>
-  <script src="js/vendor/jquery.easytabs.min.js"></script>
-
-  <script src="js/main.js"></script>
-  <!--[if lt IE 9]>
-      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-      <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
-      <![endif]-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="《从ROS1到ROS2无人机编程实战指南》- 马培立著 | lovelyyoshino">
+    <meta name="keywords" content="ROS,ROS2,无人机,机器人,编程,教程,lovelyyoshino">
+    <meta name="author" content="马培立 lovelyyoshino">
+    <title>《从ROS1到ROS2无人机编程实战指南》- 书籍详情</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" href="../pic/favicon.ico">
+    <link rel="apple-touch-icon" href="../pic/apple-touch-icon.png">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #1a1625;
+            --bg-secondary: #231d33;
+            --bg-tertiary: #2d2740;
+            
+            --primary: #FF69B4;
+            --primary-dark: #FF1493;
+            --primary-light: #FFB6C1;
+            
+            --text-primary: #e0e0ff;
+            --text-secondary: #b8b8d8;
+            --text-muted: #8888aa;
+            
+            --success: #00ff88;
+            --warning: #ffaa00;
+            --info: #00d9ff;
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+            
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 22, 37, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 16px 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--primary);
+            padding: 10px 20px;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all var(--transition-base);
+        }
+        
+        .back-btn:hover {
+            background: var(--primary);
+            color: var(--bg-primary);
+            transform: translateX(-4px);
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            padding-bottom: 60px;
+        }
+        
+        /* Book Hero */
+        .book-hero {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 60px;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+        
+        .book-cover-wrapper {
+            position: sticky;
+            top: 120px;
+        }
+        
+        .book-cover {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            transition: all var(--transition-base);
+        }
+        
+        .book-cover:hover {
+            transform: translateY(-8px) rotateY(5deg);
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+        }
+        
+        .book-cover img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .book-info {
+            padding: 20px 0;
+        }
+        
+        .book-title {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .book-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+        }
+        
+        .meta-item i {
+            color: var(--primary);
+            font-size: 20px;
+        }
+        
+        .book-description {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+        
+        .book-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .tag {
+            background: var(--bg-tertiary);
+            color: var(--success);
+            padding: 8px 16px;
+            border-radius: var(--radius-lg);
+            font-size: 14px;
+            font-weight: 600;
+            border: 2px solid var(--success);
+        }
+        
+        .purchase-section {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+        }
+        
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 16px 32px;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all var(--transition-base);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 16px 32px;
+            border-radius: var(--radius-lg);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all var(--transition-base);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-4px);
+        }
+        
+        /* Section Title */
+        .section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+        
+        .feature-card {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: var(--radius-xl);
+            border: 2px solid transparent;
+            transition: all var(--transition-base);
+        }
+        
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .feature-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+        
+        .feature-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+        }
+        
+        .feature-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        
+        /* Content Section */
+        .content-showcase {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .content-item {
+            background: var(--bg-secondary);
+            padding: 24px;
+            border-radius: var(--radius-xl);
+            border: 2px solid transparent;
+            transition: all var(--transition-base);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .content-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .content-item h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .content-item h3 .number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .content-item p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-size: 15px;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .content-image {
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            background: white;
+            padding: 8px;
+        }
+        
+        .content-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius-sm);
+            object-fit: contain;
+        }
+        
+        /* Contact Section */
+        .contact-card {
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: var(--radius-xl);
+            border: 2px solid var(--primary);
+            text-align: center;
+        }
+        
+        .contact-card h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+        
+        .qr-code {
+            display: inline-block;
+            padding: 20px;
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .qr-code img {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+        
+        .wechat-id {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--success);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .book-hero {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .book-cover-wrapper {
+                position: relative;
+                top: 0;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+            
+            .content-showcase {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 24px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .book-title {
+                font-size: 32px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-showcase {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .content-item {
+                padding: 20px;
+            }
+            
+            .content-item h3 {
+                font-size: 18px;
+            }
+            
+            .purchase-section {
+                flex-direction: column;
+            }
+            
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
-  <body class="bg-fixed bg-1">
-<!--[if lt IE 7]>
-    <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="#google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
-   <div class="main-container">
-    <div class="main wrapper clearfix">
-      <!-- Header Start -->
-        <!-- Header End -->
-        <!-- Main Tab Container -->
-        <div id="tab-container" class="tab-container">
-          <!-- Tab List -->
-            <ul class='etabs'>
-                <li class='tab'>
-                  <a href="#resume"><i class="icon-file-text"></i><span> 简历</span></a>
-                </li>
-                <li class='tab'>
-                    <a href="#write"><i class="icon-file-text"></i><span> 书籍介绍</span></a>
-                  </li>
-            </ul>
-
-            <div id='write' class=''>
-                <p><span>亲爱的读者们，我今天非常荣幸地向大家推荐一本本人的全新力作——《从ROS1到ROS2无人机编程实战指南》。这本书站在初学者的角度，从入门到进阶，再到实战，循序渐进，是学习ROS1和ROS2的最佳选择。如今已在全国范围内上市，购书即可享受次日达的快捷服务！</span></p>
-                    <p><span> </span><img src="..\pic\adab508bad0747a58189f1525190e453.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></p>
-                <p><span>本书的创作初衷源于帮助那些渴望投身于无人机或机器人开发的初学者。目前，国内关于ROS的书籍相当稀缺，大部分都是国外翻译版，内容可能更偏向于机器人学的公式推导，而非实战项目。而对于ROS2来说，国内对其进行介绍和讲述的书籍更是少之又少。本书可供机器人及无人机等相关技术工作者阅读参考，同时也可作为高校相关专业师生(如自动化、电子信息和机械等专业)的参考书。《从ROS1到ROS2无人机编程实战指南》将引领大家逐步掌握无人机编程技巧，让编程变得有趣而实用。</span>
-                    <span>本书封面独具匠心（封面由作者亲自设计）。</span></p>
-                    <p><img src="..\pic\\aeed406be4924cda969403ae81643ebf.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></p>
-                <p><span>书籍特点</span></p>
-                <ol start='1'>
-                    <li><span>提供详细的环境配置教程，助您轻松入门。</span></li>
-                </ol>
-                    <p><img src="..\pic\45cb0b18aefd477da4fb4396cf098281.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></p>
-                <ol start='2'>
-                    <li><span>从ROS1的基础知识到ROS2的高级用法进阶。</span>
-                        <span> </span><img src="..\pic\a718bea53a784800ba846841e4d92bf5.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></li>
-                </ol>
-                <ol start='3'>
-                    <li><span>附有详尽的中文代码注释，让您轻松理解。</span>
-                        <span> </span><img src="..\pic\b34eeb821d3c4480ac1e4508930e7c0e.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></li>
-                </ol>
-                <ol start='4'>
-                    <li><span>零成本阿木普罗米修斯平台无人机搭建与实操。</span>
-                        <span> </span><img src="..\pic\29efff55e8cd44b78d0607e03152a87d.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></li>
-                </ol>
-                <ol start='5'>
-                    <li><span>插图直观形象，令编程更加有趣。</span>
-                        <span> </span><img src="..\pic\8cd2521c3ec74c35b36228ce4ee77f41.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></li>
-                </ol>
-                <ol start='6'>
-                    <li><span>本书深入浅出地解释了基础知识，配有编程实例教程，帮助读者更好地理解各个知识点，克服学习过程中的困难与挫折。</span></li>
-                </ol>
-                    <p><img src="..\pic\051497e76d574347affac841bf7d3dc1.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></p>
-                <p><span>7.本书丰富的图示和类比有助于简化复杂的原理和流程，让读者更容易理解。</span>
-                    <span> </span><img src="..\pic\e8695f4832da4d5bbf7db6f7a4a2784f.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></p>
-                <ol start='8'>
-                    <li>
-                        <p><span>VSLAM&amp;LSLAM综述与经典算法逐行解析及拔高</span>
-                            <img src="..\pic\46451589f1d941c8a3c17cd005753cda.png" referrerpolicy="no-referrer" alt="在这里插入图片描述"></p>
-                    </li>
-                    <li>
-                        <p><span>感知、控制、规划一体化机器人交互进阶</span></p>
-                        <p><img src="..\pic\b306f24c5e834f5ba2eedf0322c7b816.png" referrerpolicy="no-referrer"></p>
-                    </li>
-                </ol>
-                <p><span>尽管本书主要针对ROS1和ROS2的无人机编程，但其中涉及的知识点亦适用于其他机器人编程技术，学习方法和思路同样值得借鉴。值得一提的是，本书已获得业界专家的高度推荐。</span></p>
-                <p><span>对本书内容有问题或者存在不理解的问题可以添加我们团队官方的微信号，可以与相似领域或者志同道合的朋友们一起探讨。</span></p>
-                    <p><img src="..\pic\image-20230618123556829.png" referrerpolicy="no-referrer" alt="image-20230618123556829"></p>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="../index.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>返回主页</span>
+                </a>
+                <div class="header-title">书籍详情</div>
             </div>
-                <div id="resume">
-                    <section class="clearfix">
-                        <div class="g1">
-                            <div class="sidebar">
-                                <h3>
-                                    Skills
-                                </h3>
-                                <h5>
-                                    Software
-                                </h5>
-                                <div class="meter emerald">
-                                    <span style="width: 33.3%"><span>Photoshop</span></span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Book Hero Section -->
+            <section class="book-hero">
+                <div class="book-cover-wrapper">
+                    <div class="book-cover">
+                        <img src="../pic/aeed406be4924cda969403ae81643ebf.png" alt="从ROS1到ROS2无人机编程实战指南">
+                    </div>
+                </div>
+                
+                <div class="book-info">
+                    <h1 class="book-title">《从ROS1到ROS2<br>无人机编程实战指南》</h1>
+                    
+                    <div class="book-meta">
+                        <div class="meta-item">
+                            <i class="fas fa-user"></i>
+                            <span><strong>作者：</strong>马培立（lovelyyoshino）</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-building"></i>
+                            <span><strong>出版社：</strong>阿木实验室</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span><strong>销量：</strong>7000+</span>
+                        </div>
+                        <div class="meta-item">
+                            <i class="fas fa-star"></i>
+                            <span><strong>评分：</strong>⭐⭐⭐⭐☆ 4.5/5</span>
+                        </div>
+                    </div>
+                    
+                    <div class="book-description">
+                        <p>亲爱的读者们，我非常荣幸地向大家推荐这本全新力作。本书站在<strong>初学者的角度</strong>，从入门到进阶，再到实战，<strong>循序渐进</strong>地讲解ROS1和ROS2的无人机开发，是学习机器人编程的最佳选择。</p>
+                        <p>这是<strong>国内首本系统性ROS2无人机编程实战指南</strong>，填补了国内ROS2技术书籍的空白。无论你是机器人技术工作者，还是相关专业的师生，这本书都将成为你的得力助手。</p>
+                    </div>
+                    
+                    <div class="book-tags">
+                        <span class="tag"><i class="fas fa-check"></i> 详细环境配置</span>
+                        <span class="tag"><i class="fas fa-check"></i> ROS1到ROS2进阶</span>
+                        <span class="tag"><i class="fas fa-check"></i> 中文代码注释</span>
+                        <span class="tag"><i class="fas fa-check"></i> 零成本实操平台</span>
+                        <span class="tag"><i class="fas fa-check"></i> SLAM算法解析</span>
+                        <span class="tag"><i class="fas fa-check"></i> 机器人交互进阶</span>
+                    </div>
+                    
+                    <div class="purchase-section">
+                        <a href="https://item.taobao.com/item.htm?id=673645042936" target="_blank" class="btn-primary">
+                            <i class="fas fa-shopping-cart"></i>
+                            <span>立即购买</span>
+                        </a>
+                        <a href="#contact" class="btn-secondary">
+                            <i class="fab fa-weixin"></i>
+                            <span>咨询详情</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Section -->
+            <section class="section">
+                <h2 class="section-title">📚 本书特色</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <div class="feature-title">零基础友好</div>
+                        <div class="feature-desc">从环境搭建到项目实战，每一步都有详细说明，让初学者也能轻松上手ROS开发。</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="feature-title">全程中文注释</div>
+                        <div class="feature-desc">所有代码都配有详尽的中文注释，帮助你理解每一行代码的含义和作用。</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div class="feature-title">系统性学习路径</div>
+                        <div class="feature-desc">从ROS1基础到ROS2进阶，构建完整的知识体系，让学习更有章法。</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-hands"></i>
+                        </div>
+                        <div class="feature-title">实战项目丰富</div>
+                        <div class="feature-desc">基于阿木普罗米修斯平台，提供多个实战项目，让理论知识落地实践。</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <div class="feature-title">SLAM深度解析</div>
+                        <div class="feature-desc">详细讲解VSLAM和LSLAM算法，逐行解析经典实现，助你掌握核心技术。</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="feature-title">机器人全栈</div>
+                        <div class="feature-desc">覆盖感知、控制、规划一体化，构建完整的机器人开发能力。</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Content Preview Section -->
+            <section class="section">
+                <h2 class="section-title">📖 内容预览</h2>
+                
+                <div class="content-showcase">
+                    <div class="content-item">
+                        <h3><span class="number">1</span>详细环境配置教程</h3>
+                        <p>从系统安装到开发环境搭建，手把手带你完成所有准备工作，避免初学者常见的环境问题。</p>
+                        <div class="content-image">
+                            <img src="../pic/45cb0b18aefd477da4fb4396cf098281.png" alt="环境配置">
+                        </div>
+            </div>
+                    
+                    <div class="content-item">
+                        <h3><span class="number">2</span>ROS1到ROS2进阶路径</h3>
+                        <p>系统讲解ROS1和ROS2的核心概念、通信机制、常用工具，帮助你建立完整的知识体系。</p>
+                        <div class="content-image">
+                            <img src="../pic/a718bea53a784800ba846841e4d92bf5.png" alt="ROS进阶">
                                 </div>
-                                <div class="meter carrot">
-                                    <span style="width: 90%"><span>Illustrator</span></span>
                                 </div>
-                                <div class="meter wisteria">
-                                    <span style="width: 60%"><span>InDesign</span></span>
+                    
+                    <div class="content-item">
+                        <h3><span class="number">3</span>丰富的中文代码注释</h3>
+                        <p>每个代码示例都配有详细的中文注释，让你不仅知其然，更知其所以然。</p>
+                        <div class="content-image">
+                            <img src="../pic/b34eeb821d3c4480ac1e4508930e7c0e.png" alt="代码注释">
                                 </div>
-                                <div class="meter sunflower">
-                                    <span style="width: 40%"><span>Firework</span></span>
                                 </div>
-                                <div class="meter midnight">
-                                    <span style="width: 70%"><span>Dreamweaver</span></span>
+                    
+                    <div class="content-item">
+                        <h3><span class="number">4</span>零成本无人机实操平台</h3>
+                        <p>基于阿木实验室普罗米修斯平台，提供完整的仿真环境，无需购买硬件即可实操。</p>
+                        <div class="content-image">
+                            <img src="../pic/29efff55e8cd44b78d0607e03152a87d.png" alt="实操平台">
                                 </div>
-                                <div class="meter pomengrate">
-                                    <span style="width: 60%"><span>Microsoft Office</span></span>
                                 </div>
-                                <div class="meter asbestos">
-                                    <span style="width: 65%"><span>Linux</span></span>
+                    
+                    <div class="content-item">
+                        <h3><span class="number">5</span>图文并茂，生动形象</h3>
+                        <p>大量精心设计的插图和类比，将复杂的原理和流程可视化，降低学习难度。</p>
+                        <div class="content-image">
+                            <img src="../pic/8cd2521c3ec74c35b36228ce4ee77f41.png" alt="图文并茂">
                                 </div>
-                                <div class="break"></div>
-                                <h5>
-                                    Design
-                                </h5>
-                                <div class="meter emerald">
-                                    <span style="width: 33.3%"><span>User Interface</span></span>
                                 </div>
-                                <div class="meter carrot">
-                                    <span style="width: 90%"><span>Typography</span></span>
+                    
+                    <div class="content-item">
+                        <h3><span class="number">6</span>深入浅出的原理讲解</h3>
+                        <p>复杂的算法原理通过简单的类比和图示进行解释，让你轻松理解核心概念。</p>
+                        <div class="content-image">
+                            <img src="../pic/051497e76d574347affac841bf7d3dc1.png" alt="原理讲解">
                                 </div>
-                                <div class="meter wisteria">
-                                    <span style="width: 60%"><span>Web Applications</span></span>
                                 </div>
-                                <div class="break"></div>
-                                <h5>
-                                    Programming Language
-                                </h5>
-                                <div class="meter emerald">
-                                    <span style="width: 53.3%"><span>HTML/CSS</span></span>
+                    
+                    <div class="content-item">
+                        <h3><span class="number">7</span>流程图助力理解</h3>
+                        <p>通过清晰的流程图展示系统架构和执行流程，帮助你建立整体认知。</p>
+                        <div class="content-image">
+                            <img src="../pic/e8695f4832da4d5bbf7db6f7a4a2784f.png" alt="流程图">
                                 </div>
-                                <div class="meter carrot">
-                                    <span style="width: 80%"><span>PHP/MySql</span></span>
                                 </div>
-                                <div class="meter wisteria">
-                                    <span style="width: 95%"><span>jQuery/JavaScript</span></span>
+                    
+                    <div class="content-item">
+                        <h3><span class="number">8</span>SLAM算法逐行解析</h3>
+                        <p>深入讲解VSLAM和LSLAM的经典算法，逐行分析源码实现，提升你的算法理解能力。</p>
+                        <div class="content-image">
+                            <img src="../pic/46451589f1d941c8a3c17cd005753cda.png" alt="SLAM算法">
                                 </div>
-                                <div class="meter sunflower">
-                                    <span style="width: 75%"><span>Ruby</span></span>
                                 </div>
-                                <div class="meter asbestos">
-                                    <span style="width: 82%"><span>Python</span></span>
+                    
+                    <div class="content-item">
+                        <h3><span class="number">9</span>机器人一体化交互</h3>
+                        <p>涵盖感知、控制、规划全流程，构建完整的机器人系统开发能力。</p>
+                        <div class="content-image">
+                            <img src="../pic/b306f24c5e834f5ba2eedf0322c7b816.png" alt="机器人交互">
                                 </div>
                             </div>
                         </div>
                     </section>
+
+            <!-- Who Should Read -->
+            <section class="section">
+                <h2 class="section-title">🎯 适合人群</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎓</div>
+                        <div class="feature-title">在校学生</div>
+                        <div class="feature-desc">自动化、电子信息、机械等相关专业的本科生和研究生</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">💼</div>
+                        <div class="feature-title">技术工作者</div>
+                        <div class="feature-desc">从事机器人、无人机相关开发的工程师和技术人员</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <div class="feature-title">技术爱好者</div>
+                        <div class="feature-desc">对ROS、无人机、机器人技术感兴趣的学习者</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">👨‍🏫</div>
+                        <div class="feature-title">教育工作者</div>
+                        <div class="feature-desc">高校相关专业的教师，可作为教学参考书</div>
+                    </div>
                 </div>
-              <!-- End Contact Data -->
+            </section>
+
+            <!-- Testimonials -->
+            <section class="section">
+                <h2 class="section-title">💬 读者评价</h2>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⭐⭐⭐⭐⭐</div>
+                        <div class="feature-desc">"这是我见过最适合初学者的ROS书籍，从零开始讲解，代码注释非常详细，强烈推荐！"</div>
+                        <div style="margin-top: 12px; color: var(--text-muted); font-size: 14px;">— 某高校机器人专业学生</div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⭐⭐⭐⭐⭐</div>
+                        <div class="feature-desc">"国内首本系统讲解ROS2的书籍，内容扎实，实战性强，帮助我快速掌握了ROS2开发。"</div>
+                        <div style="margin-top: 12px; color: var(--text-muted); font-size: 14px;">— 某无人机公司算法工程师</div>
+                </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">⭐⭐⭐⭐⭐</div>
+                        <div class="feature-desc">"SLAM部分讲解得非常深入，逐行代码解析让我真正理解了算法原理，受益匪浅！"</div>
+                        <div style="margin-top: 12px; color: var(--text-muted); font-size: 14px;">— 某研究所SLAM研究员</div>
             </div>
         </div>
-        <!-- End Tab Container -->
-    </div><!-- #main -->
-</div><!-- #main-container -->
+            </section>
 
+            <!-- Contact Section -->
+            <section class="section" id="contact">
+                <h2 class="section-title">📞 咨询与购买</h2>
+                
+                <div class="contact-card">
+                    <h3>有问题？联系我们！</h3>
+                    <p>对本书内容有疑问或需要购买咨询，欢迎添加我们团队的官方微信号。<br>与志同道合的朋友们一起探讨ROS技术！</p>
+                    
+                    <div class="qr-code">
+                        <img src="../pic/image-20230618123556829.png" alt="微信公众号二维码">
+                    </div>
+                    
+                    <div class="wechat-id">
+                        <i class="fab fa-weixin"></i> 微信公众号：敢敢AUTOHUB
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
 
-
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 马培立 | lovelyyoshino</p>
+            <p>Made with <i class="fas fa-heart" style="color: var(--primary);"></i> and <i class="fas fa-coffee" style="color: var(--primary);"></i></p>
+        </div>
+    </footer>
 </body>
 </html>
