@@ -1735,3 +1735,346 @@ ul {
   }
 }
 
+/* ================================
+   Particles Background
+   ================================ */
+#particles-js {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ================================
+   Stars Background (Night Mode)
+   ================================ */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle var(--duration) ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%, 100% { 
+    opacity: var(--opacity);
+    transform: scale(1);
+  }
+  50% { 
+    opacity: calc(var(--opacity) * 0.3);
+    transform: scale(0.8);
+  }
+}
+
+[data-theme="light"] .stars-container {
+  display: none;
+}
+
+/* ================================
+   Mouse Follower Effect
+   ================================ */
+.mouse-follower {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 182, 193, 0.15) 0%,
+    rgba(255, 182, 193, 0.05) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s;
+  opacity: 0;
+}
+
+.mouse-follower.active {
+  opacity: 1;
+}
+
+[data-theme="light"] .mouse-follower {
+  background: radial-gradient(
+    circle,
+    rgba(33, 150, 243, 0.12) 0%,
+    rgba(33, 150, 243, 0.04) 40%,
+    transparent 70%
+  );
+}
+
+/* ================================
+   Avatar Breathing Glow
+   ================================ */
+.hero-avatar {
+  position: relative;
+  animation: avatarFloat 4s ease-in-out infinite;
+}
+
+.avatar-img {
+  animation: avatarGlow 3s ease-in-out infinite;
+}
+
+@keyframes avatarGlow {
+  0%, 100% {
+    box-shadow: 
+      0 0 30px rgba(255, 182, 193, 0.6),
+      0 0 60px rgba(255, 182, 193, 0.4),
+      0 0 90px rgba(255, 182, 193, 0.2);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px rgba(255, 182, 193, 0.8),
+      0 0 80px rgba(255, 182, 193, 0.5),
+      0 0 120px rgba(255, 182, 193, 0.3);
+  }
+}
+
+@keyframes avatarFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+[data-theme="light"] .avatar-img {
+  animation: avatarGlowLight 3s ease-in-out infinite;
+}
+
+@keyframes avatarGlowLight {
+  0%, 100% {
+    box-shadow: 
+      0 0 30px rgba(33, 150, 243, 0.5),
+      0 0 60px rgba(33, 150, 243, 0.3),
+      0 0 90px rgba(33, 150, 243, 0.15);
+  }
+  50% {
+    box-shadow: 
+      0 0 40px rgba(33, 150, 243, 0.7),
+      0 0 80px rgba(33, 150, 243, 0.4),
+      0 0 120px rgba(33, 150, 243, 0.2);
+  }
+}
+
+/* ================================
+   3D Tilt Card Effect
+   ================================ */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tilt-card:hover {
+  transform: perspective(1000px) rotateX(var(--rotateX, 0deg)) rotateY(var(--rotateY, 0deg)) scale(1.02);
+}
+
+.tilt-card .project-image img {
+  transition: transform 0.6s ease;
+}
+
+.tilt-card:hover .project-image img {
+  transform: scale(1.1) translateZ(20px);
+}
+
+/* Project Card GitHub Link Overlay */
+.project-card[data-github]::after {
+  content: '\f09b';
+  font-family: 'Font Awesome 6 Brands';
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 20px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+  z-index: 10;
+  cursor: pointer;
+}
+
+.project-card[data-github]:hover::after {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ================================
+   Skills Progress Bars
+   ================================ */
+.skills-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.skills-category {
+  background: var(--bg-secondary);
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  border: 2px solid rgba(255, 182, 193, 0.3);
+}
+
+.skills-category h3 {
+  font-size: 18px;
+  color: var(--primary);
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skills-category h3 i {
+  font-size: 20px;
+}
+
+.skill-item {
+  margin-bottom: 20px;
+}
+
+.skill-item:last-child {
+  margin-bottom: 0;
+}
+
+.skill-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.skill-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.skill-percent {
+  color: var(--primary);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+}
+
+.skill-bar {
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skill-progress {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 4px;
+  transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.skill-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: skillShine 2s ease-in-out infinite;
+}
+
+@keyframes skillShine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.skill-progress.animate {
+  width: var(--progress);
+}
+
+/* Skills Badges Enhancement */
+.skills-badges {
+  margin-top: 40px;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive Skills */
+@media (max-width: 1024px) {
+  .skills-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .skills-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================================
+   Enhanced Scroll Reveal
+   ================================ */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-reveal:nth-child(1) { transition-delay: 0s; }
+.scroll-reveal:nth-child(2) { transition-delay: 0.1s; }
+.scroll-reveal:nth-child(3) { transition-delay: 0.2s; }
+.scroll-reveal:nth-child(4) { transition-delay: 0.3s; }
+.scroll-reveal:nth-child(5) { transition-delay: 0.4s; }
+.scroll-reveal:nth-child(6) { transition-delay: 0.5s; }
+
+/* ================================
+   Section Title Animation
+   ================================ */
+.section-title.scroll-reveal {
+  position: relative;
+}
+
+.section-title.scroll-reveal::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border-radius: 2px;
+  transform: translateX(-50%);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+}
+
+.section-title.scroll-reveal.revealed::after {
+  width: 100px;
+}
+

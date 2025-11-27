@@ -360,13 +360,13 @@ Press ANY KEY to continue...`;
   function initParticles() {
     if (typeof particlesJS === 'undefined') return;
     
-    particlesJS('particles', {
+    particlesJS('particles-js', {
       particles: {
         number: {
-          value: 60,
+          value: 50,
           density: {
             enable: true,
-            value_area: 800
+            value_area: 1000
           }
         },
         color: {
@@ -376,25 +376,35 @@ Press ANY KEY to continue...`;
           type: 'circle'
         },
         opacity: {
-          value: 0.3,
-          random: true
+          value: 0.4,
+          random: true,
+          anim: {
+            enable: true,
+            speed: 1,
+            opacity_min: 0.1
+          }
         },
         size: {
           value: 3,
-          random: true
+          random: true,
+          anim: {
+            enable: true,
+            speed: 2,
+            size_min: 0.5
+          }
         },
         line_linked: {
           enable: true,
           distance: 150,
           color: '#FFB6C1',
-          opacity: 0.2,
+          opacity: 0.15,
           width: 1
         },
         move: {
           enable: true,
-          speed: 1.5,
+          speed: 1,
           direction: 'none',
-          random: false,
+          random: true,
           straight: false,
           out_mode: 'out',
           bounce: false
@@ -406,19 +416,236 @@ Press ANY KEY to continue...`;
           onhover: {
             enable: true,
             mode: 'grab'
+          },
+          onclick: {
+            enable: true,
+            mode: 'push'
           }
         },
         modes: {
           grab: {
             distance: 140,
             line_linked: {
-              opacity: 0.5
+              opacity: 0.4
             }
+          },
+          push: {
+            particles_nb: 3
           }
         }
       },
       retina_detect: true
     });
+  }
+
+  // ================================
+  // Stars Background (Night Mode)
+  // ================================
+  class StarsBackground {
+    constructor() {
+      this.container = document.getElementById('starsContainer');
+      this.starCount = 100;
+      
+      this.init();
+    }
+    
+    init() {
+      if (!this.container) return;
+      this.createStars();
+    }
+    
+    createStars() {
+      for (let i = 0; i < this.starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        
+        const size = Math.random() * 2 + 1;
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const duration = Math.random() * 3 + 2;
+        const opacity = Math.random() * 0.5 + 0.3;
+        const delay = Math.random() * 3;
+        
+        star.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}%;
+          top: ${y}%;
+          --duration: ${duration}s;
+          --opacity: ${opacity};
+          animation-delay: ${delay}s;
+        `;
+        
+        this.container.appendChild(star);
+      }
+    }
+  }
+
+  // ================================
+  // Mouse Follower Effect
+  // ================================
+  class MouseFollower {
+    constructor() {
+      this.follower = document.getElementById('mouseFollower');
+      this.mouseX = 0;
+      this.mouseY = 0;
+      this.followerX = 0;
+      this.followerY = 0;
+      
+      this.init();
+    }
+    
+    init() {
+      if (!this.follower) return;
+      
+      document.addEventListener('mousemove', (e) => {
+        this.mouseX = e.clientX;
+        this.mouseY = e.clientY;
+        this.follower.classList.add('active');
+      });
+      
+      document.addEventListener('mouseleave', () => {
+        this.follower.classList.remove('active');
+      });
+      
+      this.animate();
+    }
+    
+    animate() {
+      this.followerX += (this.mouseX - this.followerX) * 0.1;
+      this.followerY += (this.mouseY - this.followerY) * 0.1;
+      
+      this.follower.style.left = this.followerX + 'px';
+      this.follower.style.top = this.followerY + 'px';
+      
+      requestAnimationFrame(() => this.animate());
+    }
+  }
+
+  // ================================
+  // 3D Tilt Card Effect
+  // ================================
+  class TiltCards {
+    constructor() {
+      this.cards = document.querySelectorAll('.tilt-card');
+      this.init();
+    }
+    
+    init() {
+      this.cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => this.handleMove(e, card));
+        card.addEventListener('mouseleave', (e) => this.handleLeave(e, card));
+      });
+    }
+    
+    handleMove(e, card) {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      
+      const rotateX = (y - centerY) / 20;
+      const rotateY = (centerX - x) / 20;
+      
+      card.style.setProperty('--rotateX', `${-rotateX}deg`);
+      card.style.setProperty('--rotateY', `${rotateY}deg`);
+    }
+    
+    handleLeave(e, card) {
+      card.style.setProperty('--rotateX', '0deg');
+      card.style.setProperty('--rotateY', '0deg');
+    }
+  }
+
+  // ================================
+  // Skill Bars Animation
+  // ================================
+  class SkillBars {
+    constructor() {
+      this.skillBars = document.querySelectorAll('.skill-progress');
+      this.hasAnimated = new Set();
+      
+      this.init();
+    }
+    
+    init() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !this.hasAnimated.has(entry.target)) {
+            this.hasAnimated.add(entry.target);
+            const progress = entry.target.dataset.progress;
+            entry.target.style.setProperty('--progress', `${progress}%`);
+            entry.target.classList.add('animate');
+          }
+        });
+      }, { threshold: 0.5 });
+      
+      this.skillBars.forEach(bar => observer.observe(bar));
+    }
+  }
+
+  // ================================
+  // Project Card Click Handler
+  // ================================
+  class ProjectCardLinks {
+    constructor() {
+      this.cards = document.querySelectorAll('.project-card[data-github]');
+      this.init();
+    }
+    
+    init() {
+      this.cards.forEach(card => {
+        card.style.cursor = 'pointer';
+        card.addEventListener('click', () => {
+          const url = card.dataset.github;
+          if (url) {
+            window.open(url, '_blank');
+          }
+        });
+      });
+    }
+  }
+
+  // ================================
+  // GitHub Stars API (Real-time)
+  // ================================
+  class GitHubStars {
+    constructor() {
+      this.repos = [
+        { selector: '.github-card[href*="ROS-ROS2-BOOKS"]', repo: 'lovelyyoshino/ROS-ROS2-BOOKS' },
+        { selector: '.github-card[href*="RHACrackNet"]', repo: 'lovelyyoshino/RHACrackNet' },
+        { selector: '.github-card[href*="CSR_GLM"]', repo: 'lovelyyoshino/CSR_GLM' },
+        { selector: '.github-card[href*="FAST_LIO2_Noted"]', repo: 'lovelyyoshino/FAST_LIO2_Noted' },
+        { selector: '.github-card[href*="direct_lidar_inertial_odometry"]', repo: 'lovelyyoshino/direct_lidar_inertial_odometry-noted' },
+        { selector: '.github-card[href*="SmartCar"]', repo: 'lovelyyoshino/SmartCar' },
+        { selector: '.github-card[href*="Bilibili-Live-API"]', repo: 'lovelyyoshino/Bilibili-Live-API' },
+        { selector: '.github-card[href*="Halcon_Project"]', repo: 'lovelyyoshino/Halcon_Project' }
+      ];
+      
+      this.init();
+    }
+    
+    async init() {
+      for (const { selector, repo } of this.repos) {
+        try {
+          const response = await fetch(`https://api.github.com/repos/${repo}`);
+          if (response.ok) {
+            const data = await response.json();
+            const card = document.querySelector(selector);
+            if (card) {
+              const footer = card.querySelector('.github-footer span');
+              if (footer) {
+                footer.innerHTML = `<i class="fas fa-star"></i> ${data.stargazers_count}`;
+              }
+            }
+          }
+        } catch (e) {
+          // 静默失败，保留默认值
+        }
+      }
+    }
   }
 
   // ================================
@@ -436,6 +663,16 @@ Press ANY KEY to continue...`;
     new StatsCounter();
     new ScrollAnimations();
     new BackToTop();
+    new StarsBackground();
+    new MouseFollower();
+    new TiltCards();
+    new SkillBars();
+    new ProjectCardLinks();
+    
+    // 延迟加载 GitHub Stars (避免 API 限制)
+    setTimeout(() => {
+      new GitHubStars();
+    }, 2000);
     
     // 初始化粒子效果
     setTimeout(() => {

@@ -26,6 +26,15 @@
 </head>
 <body data-theme="dark">
     
+    <!-- Particles Background -->
+    <div id="particles-js"></div>
+    
+    <!-- Stars Background (Night Mode) -->
+    <div class="stars-container" id="starsContainer"></div>
+    
+    <!-- Mouse Follower -->
+    <div class="mouse-follower" id="mouseFollower"></div>
+    
     <!-- Loading BIOS Screen -->
     <div class="bios-loader" id="biosLoader">
         <div class="bios-content">
@@ -153,7 +162,7 @@
         <!-- About Section -->
         <section class="section about-section" id="about">
             <div class="container">
-                <h2 class="section-title">About Me</h2>
+                <h2 class="section-title scroll-reveal">About Me</h2>
                 
                 <div class="about-content">
                     <div class="terminal-window">
@@ -210,19 +219,95 @@
         <!-- Skills Section -->
         <section class="section skills-section" id="skills">
             <div class="container">
-                <h2 class="section-title">Skills</h2>
+                <h2 class="section-title scroll-reveal">Skills</h2>
                 
-                <div class="skills-badges">
+                <div class="skills-container">
+                    <div class="skills-category scroll-reveal">
+                        <h3><i class="fas fa-code"></i> 编程语言</h3>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">C++</span>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" data-progress="95"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">Python</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" data-progress="90"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">C</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-category scroll-reveal">
+                        <h3><i class="fas fa-robot"></i> 机器人/自动驾驶</h3>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">ROS/ROS2</span>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" data-progress="95"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">SLAM</span>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" data-progress="90"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">具身智能</span>
+                                <span class="skill-percent">88%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" data-progress="88"></div></div>
+                        </div>
+                    </div>
+                    
+                    <div class="skills-category scroll-reveal">
+                        <h3><i class="fas fa-brain"></i> AI/深度学习</h3>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">PyTorch</span>
+                                <span class="skill-percent">88%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" data-progress="88"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">LLM/大模型</span>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <span class="skill-name">CUDA</span>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar"><div class="skill-progress" data-progress="80"></div></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 保留原有徽章作为补充 -->
+                <div class="skills-badges scroll-reveal">
                     <img src="https://img.shields.io/badge/Python-3766AB?style=for-the-badge&logo=Python&logoColor=white" alt="Python">
                     <img src="https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=PyTorch&logoColor=white" alt="PyTorch">
                     <img src="https://img.shields.io/badge/C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++">
-                    <img src="https://img.shields.io/badge/C-A8B9CC?style=for-the-badge&logo=C&logoColor=white" alt="C">
                     <img src="https://img.shields.io/badge/ROS-22314E?style=for-the-badge&logo=ros&logoColor=white" alt="ROS">
                     <img src="https://img.shields.io/badge/CUDA-76B900?style=for-the-badge&logo=nvidia&logoColor=white" alt="CUDA">
                     <img src="https://img.shields.io/badge/SLAM-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="SLAM">
                     <img src="https://img.shields.io/badge/LLM-009688?style=for-the-badge&logo=openai&logoColor=white" alt="LLM">
                     <img src="https://img.shields.io/badge/Embodied_AI-F24E1E?style=for-the-badge&logo=figma&logoColor=white" alt="Embodied AI">
-                    <img src="https://img.shields.io/badge/Markdown-000000?style=for-the-badge&logo=Markdown&logoColor=white" alt="Markdown">
                 </div>
             </div>
         </section>
@@ -230,12 +315,12 @@
         <!-- Work Projects Section -->
         <section class="section work-section" id="work">
             <div class="container">
-                <h2 class="section-title">Projects</h2>
-                <p class="section-subtitle">工作项目 · 个人开发 · 技术探索</p>
+                <h2 class="section-title scroll-reveal">Projects</h2>
+                <p class="section-subtitle scroll-reveal">工作项目 · 个人开发 · 技术探索</p>
                 
                 <div class="projects-grid">
                     <!-- Project 6 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-unitree-vla.jpg" alt="宇树机器人VLA抓取">
                             <div class="project-badge dev">量产准备</div>
@@ -257,7 +342,7 @@
                     </div>
 
                     <!-- Project 7 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-data-collection.jpg" alt="具身智能数采平台">
                             <div class="project-badge production">研发完毕</div>
@@ -279,7 +364,7 @@
                     </div>
 
                     <!-- Project 1 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-dx11.jpg" alt="DX11自动泊车">
                             <div class="project-badge production">已量产</div>
@@ -302,7 +387,7 @@
                     </div>
 
                     <!-- Project 2 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-3dgs.jpg" alt="3DGS高保真建图">
                             <div class="project-badge production">研发完毕</div>
@@ -323,7 +408,7 @@
                     </div>
 
                     <!-- Project 3 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-calibration.jpg" alt="相机环视自标定">
                             <div class="project-badge production">研发完毕</div>
@@ -344,7 +429,7 @@
                     </div>
 
                     <!-- Project 4 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-bev.jpg" alt="BEV感知部署">
                             <div class="project-badge production">研发完毕</div>
@@ -365,7 +450,7 @@
                     </div>
 
                     <!-- Project 5 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-fastlio.jpg" alt="Fast-LIO2建图">
                             <div class="project-badge production">已应用</div>
@@ -386,7 +471,7 @@
                     </div>
 
                     <!-- Personal Project 1 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-drag-viz.jpg" alt="可视化拖拽编程工具">
                             <div class="project-badge dev">个人项目</div>
@@ -403,7 +488,7 @@
                     </div>
 
                     <!-- Personal Project 2 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-gpt-agv.jpg" alt="GPT终端AGV">
                             <div class="project-badge dev">个人项目</div>
@@ -421,7 +506,7 @@
                     </div>
 
                     <!-- Personal Project 3 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-pl-slam.jpg" alt="点线SLAM系统">
                             <div class="project-badge dev">个人项目</div>
@@ -438,7 +523,7 @@
                     </div>
 
                     <!-- Personal Project 4 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-quantification.jpg" alt="量化分析工具">
                             <div class="project-badge dev">个人项目</div>
@@ -455,7 +540,7 @@
                     </div>
 
                     <!-- Personal Project 5 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-lane-follow.jpg" alt="车道线检测跟随系统">
                             <div class="project-badge dev">个人项目</div>
@@ -473,7 +558,7 @@
                     </div>
 
                     <!-- Personal Project 6 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-3d-navigation.jpg" alt="3D Navigation导航模块">
                             <div class="project-badge dev">个人项目</div>
@@ -492,7 +577,7 @@
                     </div>
 
                     <!-- Personal Project 7 -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
                             <img src="pic/project-xchat-server.jpg" alt="X Chat Server智能对话机器人">
                             <div class="project-badge dev">个人项目</div>
@@ -512,7 +597,7 @@
                     </div>
 
                     <!-- Project NEW - Claude Code Hub -->
-                    <div class="project-card">
+                    <div class="project-card tilt-card scroll-reveal" data-github="https://github.com/lovelyyoshino/claude-code-hub">
                         <div class="project-image">
                             <img src="pic/image.png" alt="Claude Code Hub">
                             <div class="project-badge dev">个人项目</div>
@@ -541,8 +626,8 @@
         <!-- Open Source Section -->
         <section class="section opensource-section" id="opensource">
             <div class="container-fluid">
-                <h2 class="section-title">Open Source</h2>
-                <p class="section-subtitle">4.0K+ GitHub Stars · 开源贡献</p>
+                <h2 class="section-title scroll-reveal">Open Source</h2>
+                <p class="section-subtitle scroll-reveal">4.0K+ GitHub Stars · 开源贡献</p>
                 
                 <div class="github-grid">
                     <!-- GitHub Project 1 -->
@@ -720,7 +805,7 @@
         <!-- Stats Section -->
         <section class="section stats-section" id="stats">
             <div class="container">
-                <h2 class="section-title">GitHub & CSDN Stats</h2>
+                <h2 class="section-title scroll-reveal">GitHub & CSDN Stats</h2>
                 
                 <div class="stats-grid">
                     <div class="stat-card">
@@ -736,7 +821,7 @@
         <!-- Book Section -->
         <section class="section book-section" id="book">
             <div class="container">
-                <h2 class="section-title">Published Book</h2>
+                <h2 class="section-title scroll-reveal">Published Book</h2>
                 
                 <div class="book-showcase">
                     <div class="book-cover">
@@ -775,7 +860,7 @@
         <!-- Contact Section -->
         <section class="section contact-section" id="contact">
             <div class="container">
-                <h2 class="section-title">Get in Touch</h2>
+                <h2 class="section-title scroll-reveal">Get in Touch</h2>
                 
                 <div class="contact-content">
                     <div class="contact-info">
@@ -844,20 +929,6 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="assets/js/app.js"></script>
-</body>
-</html>
-
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="assets/js/main.js"></script>
-</body>
-</html>
-
-
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
-    <script src="assets/js/main.js"></script>
 </body>
 </html>
 
