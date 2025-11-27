@@ -229,7 +229,8 @@ Press ANY KEY to continue...`;
   // ================================
   class StatsCounter {
     constructor() {
-      this.statElements = document.querySelectorAll('.stat-value');
+      // 跳过带有 data-dynamic 属性的元素（由其他类处理）
+      this.statElements = document.querySelectorAll('.stat-value:not([data-dynamic])');
       this.hasAnimated = new Set();
       
       this.init();
@@ -609,42 +610,298 @@ Press ANY KEY to continue...`;
   }
 
   // ================================
-  // GitHub Stars API (Real-time)
+  // GitHub Stars API (Real-time with Cache)
   // ================================
   class GitHubStars {
     constructor() {
-      this.repos = [
-        { selector: '.github-card[href*="ROS-ROS2-BOOKS"]', repo: 'lovelyyoshino/ROS-ROS2-BOOKS' },
-        { selector: '.github-card[href*="RHACrackNet"]', repo: 'lovelyyoshino/RHACrackNet' },
-        { selector: '.github-card[href*="CSR_GLM"]', repo: 'lovelyyoshino/CSR_GLM' },
-        { selector: '.github-card[href*="FAST_LIO2_Noted"]', repo: 'lovelyyoshino/FAST_LIO2_Noted' },
-        { selector: '.github-card[href*="direct_lidar_inertial_odometry"]', repo: 'lovelyyoshino/direct_lidar_inertial_odometry-noted' },
-        { selector: '.github-card[href*="SmartCar"]', repo: 'lovelyyoshino/SmartCar' },
-        { selector: '.github-card[href*="Bilibili-Live-API"]', repo: 'lovelyyoshino/Bilibili-Live-API' },
-        { selector: '.github-card[href*="Halcon_Project"]', repo: 'lovelyyoshino/Halcon_Project' }
-      ];
-      
+      this.username = 'lovelyyoshino';
+      this.repoCache = new Map();
+      this.cacheKey = 'github_stars_cache';
+      this.cacheExpiry = 60 * 60 * 1000; // 1小时缓存
       this.init();
     }
     
     async init() {
-      for (const { selector, repo } of this.repos) {
+      console.log('[GitHubStars] 开始获取GitHub数据...');
+      
+      // 先尝试从缓存加载
+      const cached = this.loadFromCache();
+      if (cached) {
+        console.log('[GitHubStars] 使用缓存数据，共', this.repoCache.size, '个仓库');
+        this.updateAllStars();
+      }
+      
+      // 然后尝试从API获取最新数据
+      const fetchSuccess = await this.fetchAllRepos();
+      
+      if (fetchSuccess && this.repoCache.size > 0) {
+        console.log('[GitHubStars] API获取成功，共', this.repoCache.size, '个仓库');
+        this.saveToCache();
+        this.updateAllStars();
+      } else if (!cached) {
+        // API失败且无缓存，使用硬编码的后备数据
+        console.log('[GitHubStars] API失败且无缓存，使用后备数据');
+        this.useFallbackData();
+        this.updateAllStars();
+      }
+    }
+    
+    loadFromCache() {
+      try {
+        const cached = localStorage.getItem(this.cacheKey);
+        if (!cached) return false;
+        
+        const { data, timestamp } = JSON.parse(cached);
+        const age = Date.now() - timestamp;
+        
+        // 缓存过期但仍可用（API失败时继续使用）
+        if (data && typeof data === 'object') {
+          Object.entries(data).forEach(([name, stars]) => {
+            this.repoCache.set(name, stars);
+          });
+          return true;
+        }
+      } catch (e) {
+        console.log('[GitHubStars] 缓存读取失败:', e);
+      }
+      return false;
+    }
+    
+    saveToCache() {
+      try {
+        const data = {};
+        this.repoCache.forEach((stars, name) => {
+          data[name] = stars;
+        });
+        localStorage.setItem(this.cacheKey, JSON.stringify({
+          data,
+          timestamp: Date.now()
+        }));
+      } catch (e) {
+        console.log('[GitHubStars] 缓存保存失败:', e);
+      }
+    }
+    
+    useFallbackData() {
+      // 后备数据（2024年数据，总计约2932 stars）
+      const fallback = {
+        'lovelyyoshino/bilibili-live-api': 1255,
+        'lovelyyoshino/halcon_licenses': 893,
+        'lovelyyoshino/shadowsocks-hosts-or-v2ray': 748,
+        'lovelyyoshino/fast_lio2_noted': 288,
+        'lovelyyoshino/smartcar': 130,
+        'lovelyyoshino/pixiv-host': 130,
+        'lovelyyoshino/ros-ros2-books': 60,
+        'lovelyyoshino/halcon_project': 53,
+        'lovelyyoshino/direct_lidar_inertial_odometry-noted': 38,
+        'lovelyyoshino/loon': 28,
+        'lovelyyoshino/chinese_notes': 24,
+        'lovelyyoshino/livo-gs': 22,
+        'lovelyyoshino/pytorch_example': 20,
+        'lovelyyoshino/libero2lerobot': 13,
+        'lovelyyoshino/rhacracknet': 12,
+        'lovelyyoshino/bilibili-strom-catcher': 11,
+        'lovelyyoshino/douyin_python': 11,
+        'lovelyyoshino/present': 10,
+        'lovelyyoshino/ip_pool': 8,
+        'lovelyyoshino/bilibili-live-tools': 7,
+        'lovelyyoshino/opencv-graphic-color-mixed-recognition': 7,
+        'lovelyyoshino/lovelyyoshino': 6,
+        'lovelyyoshino/reference': 6,
+        'lovelyyoshino/roadlib-noted': 6,
+        'lovelyyoshino/jointcalib-noted': 5,
+        'lovelyyoshino/njit_net': 5,
+        'lovelyyoshino/cpp_new_features': 4,
+        'lovelyyoshino/csr_glm': 4,
+        'lovelyyoshino/fast-livo2-note': 4,
+        'lovelyyoshino/lovelyyoshino.github.io': 4,
+        'lovelyyoshino/mvision': 4,
+        'lovelyyoshino/point_cloud_floor_ground_filter': 4,
+        'lovelyyoshino/rk3588_model': 4,
+        'lovelyyoshino/cartographer-noted': 3,
+        'lovelyyoshino/gr00t-libero': 3,
+        'lovelyyoshino/learnopencv': 3,
+        'lovelyyoshino/realsense-multi': 3,
+        'lovelyyoshino/cuda-fastbev': 2,
+        'lovelyyoshino/e-puck-webots': 2,
+        'lovelyyoshino/far_planner_improved': 2,
+        'lovelyyoshino/gpt_voice_agv': 2,
+        'lovelyyoshino/ieskf-pure': 2,
+        'lovelyyoshino/navila-noted': 2,
+        'lovelyyoshino/occnet-course': 2,
+        'lovelyyoshino/pythonrobotics': 2,
+        // 外部仓库
+        'shaohonchen/qwen3-smvl': 446
+      };
+      Object.entries(fallback).forEach(([name, stars]) => {
+        this.repoCache.set(name, stars);
+      });
+    }
+    
+    async fetchAllRepos() {
+      try {
+        let page = 1;
+        let hasMore = true;
+        let fetchedCount = 0;
+        
+        while (hasMore) {
+          const response = await fetch(
+            `https://api.github.com/users/${this.username}/repos?per_page=100&page=${page}`
+          );
+          if (!response.ok) {
+            console.log('GitHub API error:', response.status);
+            return false;
+          }
+          
+          const repos = await response.json();
+          if (repos.length === 0) {
+            hasMore = false;
+          } else {
+            repos.forEach(repo => {
+              this.repoCache.set(repo.full_name.toLowerCase(), repo.stargazers_count);
+              fetchedCount++;
+            });
+            page++;
+            if (repos.length < 100) hasMore = false;
+          }
+        }
+        
+        // 获取非自己的仓库（如 Qwen3-SmVL）
+        await this.fetchExternalRepos();
+        
+        return fetchedCount > 0;
+      } catch (e) {
+        console.log('Failed to fetch repos:', e);
+        return false;
+      }
+    }
+    
+    async fetchExternalRepos() {
+      // 收集页面上所有非自己的仓库链接
+      const cards = document.querySelectorAll('.github-card');
+      const externalRepos = [];
+      
+      cards.forEach(card => {
+        const href = card.getAttribute('href');
+        if (!href) return;
+        const match = href.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+        if (match) {
+          const fullName = `${match[1]}/${match[2]}`.toLowerCase();
+          if (!this.repoCache.has(fullName)) {
+            externalRepos.push(fullName);
+          }
+        }
+      });
+      
+      // 并行获取外部仓库数据
+      await Promise.all(externalRepos.map(async (fullName) => {
         try {
-          const response = await fetch(`https://api.github.com/repos/${repo}`);
+          const response = await fetch(`https://api.github.com/repos/${fullName}`);
           if (response.ok) {
             const data = await response.json();
-            const card = document.querySelector(selector);
-            if (card) {
-              const footer = card.querySelector('.github-footer span');
-              if (footer) {
-                footer.innerHTML = `<i class="fas fa-star"></i> ${data.stargazers_count}`;
-              }
-            }
+            this.repoCache.set(fullName, data.stargazers_count);
           }
-        } catch (e) {
-          // 静默失败，保留默认值
+        } catch (e) {}
+      }));
+    }
+    
+    updateAllStars() {
+      // 计算总star数
+      let totalStars = 0;
+      this.repoCache.forEach((stars, name) => {
+        if (name.startsWith(this.username.toLowerCase() + '/')) {
+          totalStars += stars;
+        }
+      });
+      
+      console.log('[GitHubStars] 总star数:', totalStars);
+      
+      // 更新Hero区域的GitHub Stars统计
+      const heroStatEl = document.querySelector('[data-dynamic="github-stars"]');
+      console.log('[GitHubStars] Hero元素:', heroStatEl);
+      if (heroStatEl) {
+        if (totalStars > 0) {
+          heroStatEl.dataset.target = totalStars;
+          this.animateValue(heroStatEl, 0, totalStars, 2000);
+        } else {
+          heroStatEl.textContent = '–';
         }
       }
+      
+      // 更新About区域的JSON显示
+      if (totalStars > 0) {
+        const aboutStars = document.getElementById('about-github-stars');
+        if (aboutStars) {
+          aboutStars.textContent = totalStars + '+';
+        }
+        
+        // 更新副标题
+        const subtitle = document.querySelector('.opensource-section .section-subtitle');
+        if (subtitle) {
+          subtitle.innerHTML = `${this.formatNumber(totalStars)}+ GitHub Stars · 开源贡献`;
+        }
+      }
+      
+      // 更新CSDN Followers（静态值，CSDN无公开API）
+      const csdnStatEl = document.querySelector('[data-dynamic="csdn-followers"]');
+      if (csdnStatEl) {
+        // CSDN没有公开API，使用配置的静态值
+        const csdnFollowers = 60000;
+        csdnStatEl.dataset.target = csdnFollowers;
+        this.animateValue(csdnStatEl, 0, csdnFollowers, 2000);
+      }
+      
+      // 更新每个项目卡片的star数
+      const cards = document.querySelectorAll('.github-card');
+      console.log('[GitHubStars] 找到', cards.length, '个项目卡片');
+      cards.forEach(card => {
+        const href = card.getAttribute('href');
+        if (!href) return;
+        const match = href.match(/github\.com\/([^\/]+)\/([^\/]+)/);
+        if (!match) return;
+        
+        const fullName = `${match[1]}/${match[2]}`.toLowerCase();
+        const stars = this.repoCache.get(fullName);
+        
+        if (stars !== undefined) {
+          const footer = card.querySelector('.github-footer span');
+          if (footer) {
+            console.log('[GitHubStars]', fullName, ':', stars);
+            footer.innerHTML = `<i class="fas fa-star"></i> ${stars}`;
+          }
+        }
+      });
+      console.log('[GitHubStars] 更新完成!');
+    }
+    
+    animateValue(element, start, end, duration) {
+      const startTime = Date.now();
+      
+      const update = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - progress, 3);
+        
+        const current = Math.floor(start + (end - start) * easeOut);
+        element.textContent = this.formatNumber(current);
+        
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          element.textContent = this.formatNumber(end);
+        }
+      };
+      
+      update();
+    }
+    
+    formatNumber(num) {
+      if (num >= 10000) {
+        return (num / 1000).toFixed(1) + 'K';
+      } else if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
+      }
+      return num.toString();
     }
   }
 
@@ -669,10 +926,8 @@ Press ANY KEY to continue...`;
     new SkillBars();
     new ProjectCardLinks();
     
-    // 延迟加载 GitHub Stars (避免 API 限制)
-    setTimeout(() => {
-      new GitHubStars();
-    }, 2000);
+    // 加载 GitHub Stars（页面加载后立即开始）
+    new GitHubStars();
     
     // 初始化粒子效果
     setTimeout(() => {
