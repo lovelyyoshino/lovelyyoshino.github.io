@@ -155,7 +155,7 @@ Press ENTER to continue...`;
       this.texts = [
         '具身智能架构师',
         'ROS开源贡献者',
-        '6W+粉丝技术博主',
+        '7W+粉丝技术博主',
         'SLAM专家',
         '全栈工程师'
       ];

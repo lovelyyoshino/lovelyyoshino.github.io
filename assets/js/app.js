@@ -14,7 +14,7 @@
       this.loader = document.getElementById('biosLoader');
       this.biosText = document.getElementById('biosText');
       
-      this.bootSequence = `LOVELYYOSHINO BIOS (C) 2025
+      this.bootSequence = `LOVELYYOSHINO BIOS (C) 2026
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 BIOS Date: ${new Date().toLocaleString('zh-CN')}
@@ -22,7 +22,7 @@ Version: 1.0.0 - Things Style
 
 Processor: Embodied AI Architect @ MAX MHz
 System Speed: Unlimited
-Memory: 6W+ Followers Loaded
+Memory: 7W+ Followers Loaded
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -172,7 +172,7 @@ Press ANY KEY to continue...`;
       this.texts = [
         '具身智能架构师',
         'ROS开源贡献者',
-        '6W+粉丝技术博主',
+        '7W+粉丝技术博主',
         '《从ROS1到ROS2》作者',
         'SLAM专家',
         '全栈工程师'
@@ -846,7 +846,7 @@ Press ANY KEY to continue...`;
       const csdnStatEl = document.querySelector('[data-dynamic="csdn-followers"]');
       if (csdnStatEl) {
         // CSDN没有公开API，使用配置的静态值
-        const csdnFollowers = 60000;
+        const csdnFollowers = 70000;
         csdnStatEl.dataset.target = csdnFollowers;
         this.animateValue(csdnStatEl, 0, csdnFollowers, 2000);
       }
