@@ -18,3 +18,9 @@ analytics*
 .well-known/
 .well-known@
 .well-known*
+
+# Playwright MCP 临时缓存
+.playwright-mcp/
+
+# oh-my-claudecode 会话状态
+.omc/

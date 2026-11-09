@@ -1,4 +1,14 @@
 <!DOCTYPE html>
+<!--
+index.html — lovelyyoshino 个人主页单页站点
+
+@author pony
+@date 2026-11-09
+@version v1.1.0
+@last_modified 2026-11-09
+@changelog
+    - v1.1.0 (2026-11-09): 新增 13 个项目卡片并按最近完成顺序前置，统计卡加入图源不可达时的本地兜底
+-->
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
@@ -335,6 +345,261 @@
                 <p class="section-subtitle scroll-reveal">工作项目 · 个人开发 · 技术探索</p>
                 
                 <div class="projects-grid">
+
+                    <!-- 已完成 1 - FFS 双目 VSLAM 建图导航 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-ffs-vslam.jpg" alt="FFS双目VSLAM建图导航">
+                            <div class="project-badge ready">已完成</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>FFS 双目 VSLAM 建图导航</h3>
+                            <p>以 FFS 双目深度基础模型作为稠密深度前端，逐帧融合稠密点云完成 VSLAM 定位与建图，并打通规划导航链路，实现室内场景下的实时稠密建图与自主导航。</p>
+                            <div class="project-tags">
+                                <span>双目SLAM</span>
+                                <span>FFS</span>
+                                <span>稠密建图</span>
+                                <span>自主导航</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 2 - 轻量化 LiDAR-Inertial SLAM 框架 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-lio-slam-framework.jpg" alt="轻量化LiDAR-Inertial SLAM框架">
+                            <div class="project-badge production">已量产</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>轻量化 LiDAR-Inertial SLAM 框架</h3>
+                            <p>面向嵌入式平台的激光-惯性 SLAM 框架：以共享全状态 IESKF 统一估计位姿、外参、速度、零偏与重力，配合在线退化监测在三维点面观测与平面约束观测间自适应切换，后端位姿图与地图管理保证长期建图一致性。</p>
+                            <div class="project-tags">
+                                <span>LiDAR-Inertial</span>
+                                <span>IESKF</span>
+                                <span>退化监测</span>
+                                <span>位姿图</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 3 - 自适应 MPPI 自主导航 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-adaptive-mppi.jpg" alt="自适应MPPI轮足机器人导航">
+                            <div class="project-badge production">已量产</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>自适应 MPPI 自主导航</h3>
+                            <p>面向轮足机器人的自适应 MPPI 规划控制方案：依据运动状态与场景难度动态调整采样规模与噪声，兼顾实时性与避障成功率，在真实户外场景完成整链路自主导航任务。</p>
+                            <div class="project-tags">
+                                <span>MPPI</span>
+                                <span>轮足机器人</span>
+                                <span>自主导航</span>
+                                <span>实机部署</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 4 - 端到端世界模型强化跟随 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-world-model-follow.jpg" alt="端到端世界模型强化跟随模型">
+                            <div class="project-badge ready">已完成</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>端到端世界模型强化跟随</h3>
+                            <p>面向机器人目标跟随的端到端策略：视觉编码器结合目标感知运动适配器提取世界模型表征，通过外观/运动双门控评分更新长期记忆，由 LLM 主干与流匹配动作头直接输出跟随轨迹。</p>
+                            <div class="project-tags">
+                                <span>世界模型</span>
+                                <span>流匹配</span>
+                                <span>LLM</span>
+                                <span>目标跟随</span>
+                                <span>记忆更新</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 5 - 有图语义 Lifelong 导航 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-semantic-lifelong-nav.jpg" alt="有图语义Lifelong导航">
+                            <div class="project-badge ready">已完成</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>有图语义 Lifelong 导航</h3>
+                            <p>在已有语义地图上执行长期目标搜索导航：以对象条件记忆跨任务累积已观测、空洞与不可达证据，负样本回写语义层，配合前沿探索与局部规划器构成闭环，显著减少重复探索。</p>
+                            <div class="project-tags">
+                                <span>语义导航</span>
+                                <span>ObjectNav</span>
+                                <span>Lifelong</span>
+                                <span>记忆地图</span>
+                                <span>Habitat</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 6 - 低成本鲁棒 LiVO 建图定位 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image">
+                            <img src="pic/project-livo.jpg" alt="低成本鲁棒LiVO建图定位">
+                            <div class="project-badge production">已量产</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>低成本鲁棒 LiVO 建图定位</h3>
+                            <p>面向低成本传感器组合的 LiVO：dToF 点云、彩色图像与 IMU 紧耦合，实时输出位姿与增量地图；支持旧地图与当前扫描配准、EDL 着色与质量监控，在 0.34s 延迟下稳定运行。</p>
+                            <div class="project-tags">
+                                <span>LiVO</span>
+                                <span>dToF 点云</span>
+                                <span>多传感器融合</span>
+                                <span>增量建图</span>
+                                <span>EDL</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 7 - 高尔夫机器人状态机导航 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-golf-robot-nav.jpg" alt="高尔夫机器人状态机导航控制台">
+                            <div class="project-badge production">已量产</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>高尔夫机器人状态机导航</h3>
+                            <p>面向高尔夫球场机器人的导航与作业系统：分区（A/B/C/T）作业地图、果树沙坑水池等语义要素标定、球密度代价地图与可达路径规划，配合状态机与行为树调度作业、充电与返航流程。</p>
+                            <div class="project-tags">
+                                <span>状态机</span>
+                                <span>行为树</span>
+                                <span>路径规划</span>
+                                <span>语义地图</span>
+                                <span>机器人调度</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 8 - 数字孪生资产铰链生成 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-digital-twin-hinge.jpg" alt="数字孪生数据资产铰链生成">
+                            <div class="project-badge ready">已完成</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>数字孪生资产铰链生成</h3>
+                            <p>从三维资产自动生成可交互的关节结构：对圆角箱、双抽柜、百叶柜等批量产出铰链与开合状态序列，为仿真训练与数据合成提供可直接驱动的数字孪生资产库。</p>
+                            <div class="project-tags">
+                                <span>数字孪生</span>
+                                <span>关节建模</span>
+                                <span>资产管线</span>
+                                <span>数据合成</span>
+                                <span>Isaac Sim</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 9 - SuperMimic 视觉感知强化学习 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-supermimic-rl.jpg" alt="SuperMimic视觉感知强化学习训练部署">
+                            <div class="project-badge production">已量产</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>SuperMimic 视觉感知强化学习</h3>
+                            <p>基于 Isaac Sim 的视觉感知强化学习训练与部署：教师策略在并行环境中以 32×20 低分辨率图像为观测训练，蒸馏为学生策略后部署到实物小车，完成视觉循迹闭环。</p>
+                            <div class="project-tags">
+                                <span>强化学习</span>
+                                <span>Isaac Sim</span>
+                                <span>策略蒸馏</span>
+                                <span>视觉感知</span>
+                                <span>实机部署</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 10 - 环视标定软件 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-calibration-software.jpg" alt="环视标定软件工作台">
+                            <div class="project-badge production">已量产</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>环视标定软件</h3>
+                            <p>四路环视相机一键标定工作台：前/后/左/右 4 路实时采集，纯几何与融合角点自动配准，逐相机偏差统计与前后参数回显对比，支持参数保存、撤销与人工补点微调。</p>
+                            <div class="project-tags">
+                                <span>环视标定</span>
+                                <span>一键标定</span>
+                                <span>角点配准</span>
+                                <span>实时采集</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 11 - 数采标定推理软件 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image">
+                            <img src="pic/project-data-inference-software.jpg" alt="数采标定推理软件">
+                            <div class="project-badge ready">已完成</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>数采标定推理软件</h3>
+                            <p>具身数据一站式工具链：数据集管理与分析（帧数、FPS、时长、任务分布、质量校验）、多路同步相机回放，以及动作状态波形与策略推理时间线对齐，支撑数采、标定到推理的全流程排障。</p>
+                            <div class="project-tags">
+                                <span>数据采集</span>
+                                <span>数据回放</span>
+                                <span>质量校验</span>
+                                <span>策略推理</span>
+                                <span>LeRobot</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 12 - 3D 导航栅格地图 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image diagram">
+                            <img src="pic/project-3d-nav-map.jpg" alt="3D导航栅格地图">
+                            <div class="project-badge production">已量产</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>3D 导航栅格地图</h3>
+                            <p>面向大范围三维场景的导航地图构建：由激光点云生成三维栅格通行地图，区分可通行、障碍与未知区域，配合路径规划实现室内外复杂地形下的自主导航。</p>
+                            <div class="project-tags">
+                                <span>3D 栅格</span>
+                                <span>通行地图</span>
+                                <span>路径规划</span>
+                                <span>点云</span>
+                                <span>自主导航</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- 已完成 13 - 高保真 3DGS 场景重建 -->
+                    <div class="project-card tilt-card scroll-reveal">
+                        <div class="project-image">
+                            <img src="pic/project-3dgs-park.jpg" alt="高保真3DGS园区场景重建">
+                            <div class="project-badge ready">已完成</div>
+                        </div>
+                        <div class="project-info">
+                            <h3>高保真 3DGS 场景重建</h3>
+                            <p>面向园区与室外场景的高保真高斯溅射重建：CUDA 加速训练与渲染，在低成本采集条件下还原植被、招牌等细节纹理，用于场景数字化与仿真资产生产。</p>
+                            <div class="project-tags">
+                                <span>3D Gaussian</span>
+                                <span>场景重建</span>
+                                <span>CUDA</span>
+                                <span>数字资产</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Project 6 -->
                     <div class="project-card tilt-card scroll-reveal">
                         <div class="project-image">
@@ -862,10 +1127,29 @@
                 
                 <div class="stats-grid">
                     <div class="stat-card">
-                        <img src="https://github-readme-stats.vercel.app/api?username=lovelyyoshino&show_icons=true&theme=dracula" alt="GitHub Stats">
+                        <img src="https://github-readme-stats.vercel.app/api?username=lovelyyoshino&show_icons=true&theme=dracula" alt="GitHub Stats" onload="this.closest('.stat-card').classList.add('img-loaded')">
+                        <!-- 图源 github-readme-stats 部署在 Vercel，国内网络常不可达：默认展示下面这份本地静态摘要，图片 onload 成功后再切回 -->
+                        <div class="stat-fallback">
+                            <i class="fab fa-github"></i>
+                            <h4>GitHub</h4>
+                            <div class="stat-fallback-metrics">
+                                <div><strong>4.0K+</strong><span>Stars</span></div>
+                                <div><strong>45+</strong><span>开源仓库</span></div>
+                                <div><strong>Python · C++</strong><span>主语言</span></div>
+                            </div>
+                        </div>
                     </div>
                     <div class="stat-card">
-                        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lovelyyoshino&layout=compact&theme=dracula" alt="Top Languages">
+                        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=lovelyyoshino&layout=compact&theme=dracula" alt="Top Languages" onload="this.closest('.stat-card').classList.add('img-loaded')">
+                        <div class="stat-fallback">
+                            <i class="fas fa-code"></i>
+                            <h4>Top Languages</h4>
+                            <div class="stat-fallback-metrics">
+                                <div><strong>Python</strong><span>深度学习 / 视觉</span></div>
+                                <div><strong>C++ · CUDA</strong><span>SLAM / 加速</span></div>
+                                <div><strong>JavaScript</strong><span>Web 工具</span></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

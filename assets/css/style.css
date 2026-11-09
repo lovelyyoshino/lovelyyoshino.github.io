@@ -1,3 +1,13 @@
+/**
+ * style.css — 站点主样式（Things.inc 风格 · 深/浅双主题）
+ *
+ * @author pony
+ * @date 2026-11-09
+ * @version v1.1.0
+ * @last_modified 2026-11-09
+ * @changelog
+ *   - v1.1.0 (2026-11-09): 新增项目架构图完整展示样式、统计卡兜底样式
+ */
 /* ================================
    Things.inc Style - lovelyyoshino
    ================================ */
@@ -1018,6 +1028,12 @@ ul {
   transform: scale(1.1);
 }
 
+/* 架构图 / 仿真截图类图片完整显示，避免封面裁切丢失图内关键信息 */
+.project-image.diagram img {
+  object-fit: contain;
+  padding: 12px;
+}
+
 .project-badge {
   position: absolute;
   top: 16px;
@@ -1305,6 +1321,54 @@ ul {
   display: block;
   border-radius: var(--radius-md);
 }
+/* 统计卡兜底：外链图（github-readme-stats）不可达时展示本地静态摘要 */
+.stat-fallback {
+  width: 100%;
+  text-align: center;
+}
+
+.stat-fallback > i {
+  display: block;
+  font-size: 1.75rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+}
+
+.stat-fallback h4 {
+  font-size: 1.05rem;
+  margin-bottom: 18px;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+}
+
+.stat-fallback-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.stat-fallback-metrics strong {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 1.25rem;
+  color: var(--primary);
+}
+
+.stat-fallback-metrics span {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+/* 默认展示本地摘要，外链图 onload 成功后再切回图片，避免长时间空白 */
+.stat-card:not(.img-loaded) img {
+  display: none;
+}
+
+.stat-card.img-loaded .stat-fallback {
+  display: none;
+}
+
 
 /* ================================
    Book Section
